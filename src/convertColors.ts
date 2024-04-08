@@ -16,8 +16,6 @@ function figmaRGBToWebRGB(color): any {
         rgb[i] = Math.round(color[e] * 255)
     })
 
-    console.log(rgb)
-    console.log(color['a'])
     if (color['a'] !== undefined && color['a'] !== 1) rgb[3] = Math.round(color['a'] * 100) / 100
     return rgb
 }
