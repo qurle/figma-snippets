@@ -2,7 +2,7 @@
 import { generateVariableValues } from './generateVariableValues'
 import { renameCodeSyntax } from './renameCodeSyntax'
 // Constants
-const snippets = [generateVariableValues]
+const snippets = [generateVariableValues, renameCodeSyntax]
 const confirmMsgs = ["Done!", "You got it!", "Aye!", "Is that all?", "My job here is done.", "Gotcha!", "It wasn't hard.", "Got it! What's next?"]
 // Variables
 let notification: NotificationHandler
@@ -13,7 +13,8 @@ figma.on("currentpagechange", cancel)
 // Main + Elements Check
 figma.on('run', async ({ parameters }: RunEvent) => {
   working = true
-  await snippets[parameters.snippet]
+  console.log(parameters.snippet)
+  await snippets[parameters.snippet]()
   finish()
 })
 
@@ -42,8 +43,7 @@ function camelCaseToSentence(s: string): string {
 // Ending the work
 function finish() {
   working = false
-  figma.root.setRelaunchData({ relaunch: '' })
-  notify(confirmMsgs[Math.floor(Math.random() * confirmMsgs.length)])
+  // notify(confirmMsgs[Math.floor(Math.random() * confirmMsgs.length)])
   setTimeout(() => { console.log("Timeouted"), figma.closePlugin() }, 3000)
 }
 
