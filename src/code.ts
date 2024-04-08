@@ -1,47 +1,49 @@
+// Imports
+import { generateVariableValues } from './generateVariableValues'
+import { renameCodeSyntax } from './renameCodeSyntax'
 // Constants
+const snippets = [generateVariableValues]
 const confirmMsgs = ["Done!", "You got it!", "Aye!", "Is that all?", "My job here is done.", "Gotcha!", "It wasn't hard.", "Got it! What's next?"]
-const renameMsgs = ["Cleaned", "Affected", "Made it with", "Fixed"]
-const idleMsgs = ["All great, already", "Nothing to do, everything's good", "Any layers to affect? Can't see it", "Nothing to do, your layers are great"]
-
 // Variables
 let notification: NotificationHandler
-let selection: ReadonlyArray<SceneNode>
-let working: boolean
-let count: number = 0
+let working = false
 
 figma.on("currentpagechange", cancel)
 
 // Main + Elements Check
-working = true
-selection = figma.currentPage.selection
-run()
-
-async function run() {
-  // Anything selected?
-  if (selection.length)
-    for (const node of selection)
-      await mainFunction(node)
-  else
-    await mainFunction(figma.currentPage)
+figma.on('run', async ({ parameters }: RunEvent) => {
+  working = true
+  await snippets[parameters.snippet]
   finish()
-}
+})
 
-// Action for selected nodes
-async function mainFunction(node: SceneNode | PageNode) {
-  count++
+figma.parameters.on(
+  'input',
+  async ({ key, query, result }: ParameterInputEvent) => {
+    switch (key) {
+      case 'snippet': {
+        result.setSuggestions(snippets.map((el, index) => ({
+          name: camelCaseToSentence(el.name),
+          data: index
+        })).filter(s => s.name.toLowerCase().includes(query.toLowerCase())))
+        break
+      }
+      default:
+        return
+    }
+  }
+)
+
+function camelCaseToSentence(s: string): string {
+  const result = s.replace(/([A-Z])/g, ' $1')
+  return result.charAt(0).toUpperCase() + result.slice(1)
 }
 
 // Ending the work
 function finish() {
   working = false
   figma.root.setRelaunchData({ relaunch: '' })
-  if (count > 0) {
-    notify(confirmMsgs[Math.floor(Math.random() * confirmMsgs.length)] +
-      " " + renameMsgs[Math.floor(Math.random() * renameMsgs.length)] +
-      " " + ((count === 1) ? "only one layer" : (count + " layers")))
-
-  }
-  else notify(idleMsgs[Math.floor(Math.random() * idleMsgs.length)])
+  notify(confirmMsgs[Math.floor(Math.random() * confirmMsgs.length)])
   setTimeout(() => { console.log("Timeouted"), figma.closePlugin() }, 3000)
 }
 
