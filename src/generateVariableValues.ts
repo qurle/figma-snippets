@@ -1,6 +1,8 @@
 import { figmaRGBToHex } from './convertColors'
 const fontInter: FontName = { family: 'Inter', style: 'Regular' }
 
+let count = 0
+
 export const generateVariableValues = async () => {
     figma.currentPage.selection.forEach(async (currentLayer: FrameNode) => {
         if (currentLayer.type !== 'FRAME') return
@@ -27,7 +29,9 @@ export const generateVariableValues = async () => {
         currentLayer.children.forEach(el => el.remove())
         currentLayer.appendChild(makeText(variable.name))
         currentLayer.appendChild(value)
+        count++
     })
+    figma.notify(`Generated for ${count} variables`)
 }
 
 function makeText(text: string) {

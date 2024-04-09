@@ -1,8 +1,9 @@
 // Imports
 import { generateVariableValues } from './generateVariableValues'
 import { renameCodeSyntax } from './renameCodeSyntax'
+import { renameProperties } from './renameProperties'
 // Constants
-const snippets = [generateVariableValues, renameCodeSyntax]
+const snippets = [generateVariableValues, renameCodeSyntax, renameProperties]
 const confirmMsgs = ["Done!", "You got it!", "Aye!", "Is that all?", "My job here is done.", "Gotcha!", "It wasn't hard.", "Got it! What's next?"]
 // Variables
 let notification: NotificationHandler
@@ -13,7 +14,7 @@ figma.on("currentpagechange", cancel)
 // Main + Elements Check
 figma.on('run', async ({ parameters }: RunEvent) => {
   working = true
-  console.log(parameters.snippet)
+  console.log(snippets[parameters.snippet].name)
   await snippets[parameters.snippet]()
   finish()
 })
