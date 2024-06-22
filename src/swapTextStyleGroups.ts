@@ -4,7 +4,6 @@ const mapping = {
 }
 
 let count = 0
-let froms = Object.keys(mapping)
 
 export const swapTextStyleGroups = async () => {
 	const textStyles = await figma.getLocalTextStylesAsync()
@@ -18,6 +17,7 @@ async function swapTextStyles(nodes, textStyles) {
 		if (textStyleId && textStyleId !== figma.mixed) {
 			const styleName = (await figma.getStyleByIdAsync(textStyleId)).name
 			let [prefix, ...name] = styleName.split('/')
+			//@ts-ignore
 			name = name.join('/')
 			if (prefix.toLowerCase() === mapping.from.toLowerCase()) {
 				node.textStyleId = textStyles.find(style => style.name === (mapping.from + name)).id

@@ -10,10 +10,10 @@
   "author": "Nikita Denisov",
   "license": "",
   "devDependencies": {
-    "@figma/plugin-typings": "^1.87.0",
+    "@figma/plugin-typings": "^1.96.0",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.3.3",
-    "webpack": "^5.90.0",
+    "typescript": "^5.5.2",
+    "webpack": "^5.90.",
     "webpack-cli": "^5.1.4"
   }
 }

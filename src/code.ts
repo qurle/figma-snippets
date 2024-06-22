@@ -2,9 +2,9 @@
 import { generateVariableValues } from './generateVariableValues'
 import { renameCodeSyntax } from './renameCodeSyntax'
 import { renameProperties } from './renameProperties'
+import { swapTextStyleGroups } from './swapTextStyleGroups'
 // Constants
-const snippets = [generateVariableValues, renameCodeSyntax, renameProperties]
-const confirmMsgs = ["Done!", "You got it!", "Aye!", "Is that all?", "My job here is done.", "Gotcha!", "It wasn't hard.", "Got it! What's next?"]
+const snippets = [generateVariableValues, renameCodeSyntax, renameProperties, swapTextStyleGroups]
 // Variables
 let notification: NotificationHandler
 let working = false
