@@ -1,13 +1,13 @@
 {
-  "name": "figma-name",
+  "name": "figma-snippets",
   "version": "1.0.0",
-  "description": "insert your description",
+  "description": "just some short commands",
   "main": "code.js",
   "scripts": {
     "build": "webpack",
     "watch": "npm run build -- --watch"
   },
-  "author": "your precious name",
+  "author": "Nikita Denisov",
   "license": "",
   "devDependencies": {
     "@figma/plugin-typings": "^1.87.0",
