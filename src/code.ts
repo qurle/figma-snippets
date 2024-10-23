@@ -3,8 +3,11 @@ import { generateVariableValues } from './generateVariableValues'
 import { renameCodeSyntax } from './renameCodeSyntax'
 import { renameProperties } from './renameProperties'
 import { swapTextStyleGroups } from './swapTextStyleGroups'
+import { bindSize } from './bindSize'
+import { fill, fillScale } from './fill'
+import { leaveOneImage } from './leaveOneImage'
 // Constants
-const snippets = [generateVariableValues, renameCodeSyntax, renameProperties, swapTextStyleGroups]
+const snippets = [generateVariableValues, renameCodeSyntax, renameProperties, swapTextStyleGroups, bindSize, fill, fillScale, leaveOneImage]
 // Variables
 let notification: NotificationHandler
 let working = false
@@ -15,8 +18,13 @@ figma.on("currentpagechange", cancel)
 figma.on('run', async ({ parameters }: RunEvent) => {
   working = true
   console.log(snippets[parameters.snippet].name)
-  await snippets[parameters.snippet]()
-  finish()
+  try {
+    await snippets[parameters.snippet]()
+    finish()
+  }
+  catch (e) {
+    figma.notify(JSON.stringify(e), { error: true })
+  }
 })
 
 figma.parameters.on(

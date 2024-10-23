@@ -1,6 +1,7 @@
 const mapping = {
 	from: "Medium",
-	to: "Large"
+	to: "Large",
+	spacer: '/'
 }
 
 let count = 0
@@ -16,15 +17,16 @@ async function swapTextStyles(nodes, textStyles) {
 		const textStyleId = node.textStyleId
 		if (textStyleId && textStyleId !== figma.mixed) {
 			const styleName = (await figma.getStyleByIdAsync(textStyleId)).name
-			let [prefix, ...name] = styleName.split('/')
+			let [prefix, ...name] = styleName.split(mapping.spacer)
 			//@ts-ignore
-			name = name.join('/')
+			name = name.join(mapping.spacer)
 			if (prefix.toLowerCase() === mapping.from.toLowerCase()) {
-				node.textStyleId = textStyles.find(style => style.name === (mapping.from + name)).id
+				const newStyleId = textStyles.find(style => style.name === (mapping.to + mapping.spacer + name))?.id || null
+				if (newStyleId) node.textStyleId = newStyleId
 				count++
 			}
 		}
-		if (node.children.length > 0) {
+		if (node.children && node.children.length > 0) {
 			await swapTextStyles(node.children, textStyles)
 		}
 	}
