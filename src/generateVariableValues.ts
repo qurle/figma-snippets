@@ -13,6 +13,7 @@ export const generateVariableValues = async () => {
         await figma.loadFontAsync(fontInter)
         const value = makeText(figmaRGBToHex(variable.resolveForConsumer(currentLayer).value as RGB | RGBA))
         value.opacity = .75
+        currentLayer.name = variable.name
         currentLayer.layoutMode = 'HORIZONTAL'
         currentLayer.paddingTop = 16
         currentLayer.paddingBottom = 16
