@@ -5,7 +5,15 @@ let count = 0
 
 export const generateVariableValues = async () => {
     figma.currentPage.selection.forEach(async (currentLayer: FrameNode) => {
-        if (currentLayer.type !== 'FRAME') return
+        if (currentLayer.type !== 'FRAME') {
+            const oldLayer = currentLayer
+            currentLayer = figma.createFrame()
+            oldLayer.parent.insertChild(0, currentLayer)
+            currentLayer.x = oldLayer.x
+            currentLayer.y = oldLayer.y
+            currentLayer.fills = oldLayer.fills
+            oldLayer.remove()
+        }
 
         let variable = (await figma.variables.getVariableByIdAsync(
             currentLayer.fills[0].boundVariables.color.id))
@@ -32,7 +40,6 @@ export const generateVariableValues = async () => {
         currentLayer.appendChild(value)
         count++
     })
-    figma.notify(`Generated for ${count} variables`)
 }
 
 function makeText(text: string) {

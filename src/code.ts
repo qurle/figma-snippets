@@ -6,8 +6,9 @@ import { swapTextStyleGroups } from './swapTextStyleGroups'
 import { bindSize } from './bindSize'
 import { fill, fillScale } from './fill'
 import { leaveOneImage } from './leaveOneImage'
+import { applyMinAndMax } from './applyMinAndMax'
 // Constants
-const snippets = [generateVariableValues, renameCodeSyntax, renameProperties, swapTextStyleGroups, bindSize, fill, fillScale, leaveOneImage]
+const snippets = [generateVariableValues, renameCodeSyntax, renameProperties, swapTextStyleGroups, bindSize, fill, fillScale, leaveOneImage, applyMinAndMax]
 // Variables
 let notification: NotificationHandler
 let working = false
