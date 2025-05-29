@@ -76,7 +76,7 @@ const createAL = (child, fillNodesCount) => {
 	al.verticalPadding = gap
 	al.horizontalPadding = gap
 	al.itemSpacing = gap
-	al.counterAxisSpacing = gap
+	al.counterAxisSpacing = null
 	al.resize(child.width * widthInNodes + gap * (widthInNodes + 1), 0)
 	al.layoutSizingVertical = 'HUG'
 	al.x = child.x
