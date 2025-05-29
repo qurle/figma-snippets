@@ -1,14 +1,18 @@
 // Imports
-import { generateVariableValues } from './generateVariableValues'
-import { renameCodeSyntax } from './renameCodeSyntax'
-import { renameProperties } from './renameProperties'
-import { swapTextStyleGroups } from './swapTextStyleGroups'
-import { bindSize } from './bindSize'
-import { fill, fillScale } from './fill'
-import { leaveOneImage } from './leaveOneImage'
-import { applyMinAndMax } from './applyMinAndMax'
+import { generateVariableValues } from './snippets/generateVariableValues'
+import { renameCodeSyntax } from './snippets/renameCodeSyntax'
+import { renameProperties } from './snippets/renameProperties'
+import { swapTextStyleGroups } from './snippets/swapTextStyleGroups'
+import { bindSize } from './snippets/bindSize'
+import { fill, fillScale } from './snippets/fill'
+import { leaveOneImage } from './snippets/leaveOneImage'
+import { applyMinAndMax } from './snippets/applyMinAndMax'
+import { applyFills } from './snippets/applyFills'
 // Constants
-const snippets = [generateVariableValues, renameCodeSyntax, renameProperties, swapTextStyleGroups, bindSize, fill, fillScale, leaveOneImage, applyMinAndMax]
+const snippets = [generateVariableValues, renameCodeSyntax,
+  renameProperties, swapTextStyleGroups, bindSize, fill,
+  fillScale, leaveOneImage, applyMinAndMax, applyFills
+]
 // Variables
 let notification: NotificationHandler
 let working = false

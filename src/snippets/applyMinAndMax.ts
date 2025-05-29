@@ -1,3 +1,6 @@
+/**
+ * Set minimal and maximum height and width of element equal to current width and height 
+ */
 export const applyMinAndMax = async () => {
 	let propCount = 0
 	let nodeCount = 0

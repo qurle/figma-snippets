@@ -1,3 +1,7 @@
+/**
+ * Set element to fill the parent by setting width and height
+ */
+
 const typesToFill: NodeType[] = [
 	'COMPONENT', 'COMPONENT_SET', 'ELLIPSE', 'FRAME',
 	'HIGHLIGHT', 'INSTANCE', 'LINE', 'POLYGON', 'RECTANGLE',

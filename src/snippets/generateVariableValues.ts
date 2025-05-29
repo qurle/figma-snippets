@@ -1,3 +1,7 @@
+/**
+ * Get variables from fills of elements and print them as text
+ */
+
 import { figmaRGBToHex } from './convertColors'
 const fontInter: FontName = { family: 'Inter', style: 'Regular' }
 

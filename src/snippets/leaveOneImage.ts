@@ -3,8 +3,11 @@
 // 	'HIGHLIGHT', 'INSTANCE', 'LINE', 'POLYGON', 'RECTANGLE',
 // 	'STAMP', 'STAR', 'TEXT', 'VECTOR']
 
+/**
+ * Remove multiple image fills
+ */
 
-export const leaveOneImage = (scale = false) => {
+export const leaveOneImage = () => {
 	let nodeCount = 0
 	let imageCount = 0
 

@@ -9,6 +9,10 @@ const mapping = {
 let count = 0
 let froms = Object.keys(mapping)
 
+/**
+ * Batch rename properties (rules are hardcoded)
+ */
+
 export const renameProperties = () => {
     for (const node of figma.currentPage.selection as ComponentSetNode[]) {
         console.log('Node: ' + node.name)

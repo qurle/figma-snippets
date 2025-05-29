@@ -1,18 +1,19 @@
-const mapping = {
-	from: "Medium",
-	to: "Large",
-	spacer: '/'
-}
-
 let count = 0
 
-export const swapTextStyleGroups = async () => {
+/**
+ * Replace text styles based on groups
+ * @param from Group to replace
+ * @param to Replacement group
+ * @param spacer Spacer that used in forming style name
+ */
+
+export const swapTextStyleGroups = async (from = 'Medium', to = 'Large', spacer = '/') => {
 	const textStyles = await figma.getLocalTextStylesAsync()
-	swapTextStyles(figma.currentPage.selection, textStyles)
+	swapTextStyles(figma.currentPage.selection, textStyles, { from: from, to: to, spacer: spacer })
 	figma.notify(`Swapped ${count} properties`)
 }
 
-async function swapTextStyles(nodes, textStyles) {
+async function swapTextStyles(nodes, textStyles, mapping) {
 	for (const node of nodes) {
 		const textStyleId = node.textStyleId
 		if (textStyleId && textStyleId !== figma.mixed) {
@@ -27,7 +28,7 @@ async function swapTextStyles(nodes, textStyles) {
 			}
 		}
 		if (node.children && node.children.length > 0) {
-			await swapTextStyles(node.children, textStyles)
+			await swapTextStyles(node.children, textStyles, mapping)
 		}
 	}
 }

@@ -1,3 +1,6 @@
+/**
+ * Bind width and height of elements to variables (if proper ones exist)
+ */
 const propertiesToBind: VariableBindableNodeField[] = ['width', 'height']
 const typesToBind: NodeType[] = ['COMPONENT']
 
