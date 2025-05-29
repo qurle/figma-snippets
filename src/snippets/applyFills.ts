@@ -1,4 +1,4 @@
-const fillNames = ['image', 'picture', 'fill', 'bg', 'background']
+const fillNames = ['fill', 'image', 'picture', 'bg', 'background']
 const typesOfFilled: NodeType[] = [
 	'COMPONENT', 'COMPONENT_SET', 'ELLIPSE', 'FRAME',
 	'HIGHLIGHT', 'INSTANCE', 'LINE', 'POLYGON', 'RECTANGLE',
@@ -6,15 +6,36 @@ const typesOfFilled: NodeType[] = [
 
 /**
  * Create lots copies of element with differents fills applied to it
- * @param fillNames Array of possible names for fill sample elements
+ * @param childeren If should look up a children of elements instead of direct elements 
  */
 
-export const applyFills = async (fillNames) => {
+export const applyFills = async (children = false) => {
 	let nodeCount = 0
-
 	const selection = figma.currentPage.selection
-	const fillNodes = selection.filter(node => isFill(node) && typesOfFilled.includes(node.type))
-	const applier = selection.find(node => !isFill(node) && typesOfFilled.includes(node.type))
+
+	if (selection.length === 0) {
+		figma.notify('Selection is empty')
+		return
+	}
+
+	let samples: readonly any[] = []
+
+	if (children) {
+		samples = figma.currentPage.selection.map(parent => 'children' in parent && parent.children).flat().filter(node => isFill(node))
+	} else
+		samples = selection
+
+	const fillNodes = samples.filter(node => isFill(node) && 'fills' in node)
+	if (fillNodes.length === 0) {
+		figma.notify('Not found image layers called either: ' + fillNames.join(', '))
+		return
+	}
+
+	const applier = selection.find(node => !isFill(node) && 'fills' in node)
+	if (fillNodes.length === 0) {
+		figma.notify('Not found layer to apply fills')
+		return
+	}
 
 	const al = createAL(applier, fillNodes.length)
 
@@ -32,6 +53,8 @@ export const applyFills = async (fillNames) => {
 	figma.notify(`Created ${nodeCount} filled copies`)
 }
 
+export const applyFillsOnChildren = () => { applyFills(true) }
+
 const isFill = (node) => fillNames.includes(node.name.toLowerCase())
 
 const createAL = (child, fillNodesCount) => {
@@ -40,8 +63,6 @@ const createAL = (child, fillNodesCount) => {
 	al.layoutWrap = 'WRAP'
 	const gap = 64
 	const widthInNodes = Math.ceil(Math.sqrt(fillNodesCount))
-	console.log(widthInNodes)
-	console.log('width: ' + child.width + widthInNodes + gap * (widthInNodes + 1))
 	al.layoutSizingHorizontal = 'FIXED'
 	al.verticalPadding = gap
 	al.horizontalPadding = gap
