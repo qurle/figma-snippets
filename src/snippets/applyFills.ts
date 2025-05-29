@@ -6,7 +6,7 @@ const typesOfFilled: NodeType[] = [
 
 /**
  * Create lots copies of element with differents fills applied to it
- * @param childeren If should look up a children of elements instead of direct elements 
+ * @param children If should look up a children of elements instead of direct elements 
  */
 
 export const applyFills = async (children = false) => {
@@ -31,7 +31,8 @@ export const applyFills = async (children = false) => {
 		return
 	}
 
-	const applier = selection.find(node => !isFill(node) && 'fills' in node)
+	const applier = selection.find(node => !isFill(node, children) && 'fills' in node)
+	console.log(applier.name)
 	if (fillNodes.length === 0) {
 		figma.notify('Not found layer to apply fills')
 		return
@@ -55,7 +56,15 @@ export const applyFills = async (children = false) => {
 
 export const applyFillsOnChildren = () => { applyFills(true) }
 
-const isFill = (node) => fillNames.includes(node.name.toLowerCase())
+const isFill = (node, checkChildren = false) => {
+	console.log(`Checking ${node.name} with children: ${checkChildren}`)
+	if (!checkChildren)
+		return fillNames.includes(node.name.toLowerCase())
+	else
+		return 'children' in node && node.children.some(node => isFill(node))
+
+
+}
 
 const createAL = (child, fillNodesCount) => {
 	const al = figma.createFrame()
