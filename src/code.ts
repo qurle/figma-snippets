@@ -8,11 +8,12 @@ import { fill, fillScale } from './snippets/fill'
 import { leaveOneImage } from './snippets/leaveOneImage'
 import { applyMinAndMax } from './snippets/applyMinAndMax'
 import { applyFills, applyFillsOnChildren } from './snippets/applyFills'
+import { clone } from './snippets/clone'
 // Constants
 const snippets = [generateVariableValues, renameCodeSyntax,
   renameProperties, swapTextStyleGroups, bindSize, fill,
   fillScale, leaveOneImage, applyMinAndMax, applyFills,
-  applyFillsOnChildren
+  applyFillsOnChildren, clone
 ]
 // Variables
 let notification: NotificationHandler
