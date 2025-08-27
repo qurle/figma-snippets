@@ -3,7 +3,7 @@
  * @param name Name of top-level frame
  */
 
-export const wrapInAutoLayout = async (name = 'Vector') => {
+export const wrapInAutoLayout = async (name = 'Content') => {
 	let nodeCount = 0
 	const selection = figma.currentPage.selection
 
