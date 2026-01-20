@@ -1,5 +1,5 @@
 /**
- * Copy layer names, divided by new lines
+ * Create a text layer with selected layers names, divided by new lines
  */
 
 const defaultSeparator = '\n'
