@@ -10,11 +10,12 @@ import { applyMinAndMax } from './snippets/applyMinAndMax'
 import { applyFills, applyFillsOnChildren } from './snippets/applyFills'
 import { clone } from './snippets/clone'
 import { wrapInAutoLayout } from './snippets/wrapInAutoLayout'
+import { printNames } from './snippets/printNames'
 // Constants
 const snippets = [generateVariableValues, renameCodeSyntax,
   renameProperties, swapTextStyleGroups, bindSize, fill,
   fillScale, leaveOneImage, applyMinAndMax, applyFills,
-  applyFillsOnChildren, clone, wrapInAutoLayout
+  applyFillsOnChildren, clone, wrapInAutoLayout, printNames
 ]
 // Variables
 let notification: NotificationHandler
