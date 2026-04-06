@@ -13,7 +13,11 @@ export const clone = async () => {
 
 	const clones = []
 	for (const el of selection) {
-		clones.push(el.clone())
+		const clone = el.clone()
+		clone.name += ' (Copy)'
+		clone.x += 32
+		clone.y += 32
+		clones.push(clone)
 		nodeCount++
 	}
 	figma.currentPage.selection = clones
