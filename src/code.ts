@@ -11,11 +11,14 @@ import { applyFills, applyFillsOnChildren } from './snippets/applyFills'
 import { clone } from './snippets/clone'
 import { wrapInAutoLayout } from './snippets/wrapInAutoLayout'
 import { printNames } from './snippets/printNames'
+import { renameInOrder } from './snippets/renameInOrder'
+import { generateDeprecated } from './snippets/generateDeprecated'
 // Constants
 const snippets = [generateVariableValues, renameCodeSyntax,
   renameProperties, swapTextStyleGroups, bindSize, fill,
   fillScale, leaveOneImage, applyMinAndMax, applyFills,
-  applyFillsOnChildren, clone, wrapInAutoLayout, printNames
+  applyFillsOnChildren, clone, wrapInAutoLayout, printNames, renameInOrder,
+  generateDeprecated
 ]
 // Variables
 let notification: NotificationHandler
@@ -33,6 +36,7 @@ figma.on('run', async ({ parameters }: RunEvent) => {
   }
   catch (e) {
     figma.notify(JSON.stringify(e), { error: true })
+    setTimeout(() => finish(), 5000)
   }
 })
 

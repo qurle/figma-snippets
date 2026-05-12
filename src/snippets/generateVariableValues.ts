@@ -4,7 +4,6 @@
 
 import { figmaRGBToHex } from './convertColors'
 const fontInter: FontName = { family: 'Inter', style: 'Regular' }
-
 let count = 0
 
 export const generateVariableValues = async () => {
